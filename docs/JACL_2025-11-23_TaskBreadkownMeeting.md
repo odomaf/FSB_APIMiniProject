@@ -1,4 +1,4 @@
-Sunday Notes
+Sunday Notes 2025-11-23
 
 Plan: in progress
 Theme: Entertainment - Anime
