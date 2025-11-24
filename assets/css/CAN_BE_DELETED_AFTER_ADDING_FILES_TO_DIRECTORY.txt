@@ -1,1 +1,0 @@
-GitHub requires a file in a folder to update the folder structure. After necessary file(s) are added, this one can be deleted
