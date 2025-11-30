@@ -5,7 +5,16 @@ Saturday 11/30/2025
 **===DECISIONS===**
 
 * Moving from MyAnimeList to Jikan, which pulls from MyAnimeList but does not trigger CORS errors
-  
+
+
+
+**===ACTIONS===**
+
+* Clean up index.html, implement outer containers of wireframe (James/Anne)
+* Add API fetch for Jikan and log data to console (Lynette/Clifton)
+* Divide up remaining UX work between James/Anne (James/Anne)
+* Make test space in UI for Lynette and Clifton to practice getting data onto the screen (James/Anne)
+* Get data from APIs displaying on screen (Lynette/Clifton) - may want to divide this into two tasks, by API, since both have to display data on screen
 
 
 
@@ -14,9 +23,10 @@ Saturday 11/30/2025
 Lynette \& James discovered a new Problem:
 
 * MyAnimeList requires client id in header, and getting a CORS error because it was exposed - requires backend work, and that's out of the scope of this project. Options:
-  - Do the backend work anyway (decided no, don't want to overscope)
-  - Move away from anime to something like OMDB or TMDB to further generalize and get access that allows us to use naked URL without headers that trigger CORS security issues (could work, may require re-thinking our requirements a bit)
-  - Find another anime API - will Jikan work for this? (tested in meetings, seems yes, it will, this is our preferred option right now
+
+  * Do the backend work anyway (decided no, don't want to overscope)
+  * Move away from anime to something like OMDB or TMDB to further generalize and get access that allows us to use naked URL without headers that trigger CORS security issues (could work, may require re-thinking our requirements a bit)
+  * Find another anime API - will Jikan work for this? (tested in meetings, seems yes, it will, this is our preferred option right now
 
 
 
@@ -35,6 +45,3 @@ Presentation:
 
 * Front-end: James \& Anne
 * Back-end: Clifton \& Lynette
-
-
-
