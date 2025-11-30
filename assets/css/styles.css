@@ -1,3 +1,103 @@
-#topFaves {
-  background-color: red;
+/* --- Original Container Styles --- */
+.hero-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  width: auto;
 }
+
+.search-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  top: 93px;
+  left: 100px;
+  z-index: 10;
+}
+
+.logo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.base-img {
+  display: block;
+}
+
+/* --- App / Slot Machine Styles (Moved from HTML) --- */
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.doors {
+  display: flex;
+  /* Merged transform from your original CSS to keep the sizing */
+  transform: scale(0.5);
+  position: absolute;
+  top: 50px;
+  right: 5px;
+}
+
+.hover-3d {
+  transform: scale(0.75);
+  display: flex;
+  position: relative;
+  align-self: flex-end;
+}
+
+.door {
+  background: #fafafa;
+  width: 100px;
+  height: 110px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.boxes {
+  transition: transform 5s ease-in-out;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.info {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  /* Ensure this sits on top if needed */
+  z-index: 20;
+}
+
+aside {
+  float: left;
+}
+
+#topFaves {
+  float: left;
+}
+/* #tvShows {
+  background-color: blue;
+} */
+
+/* #movies {
+  background-color: red;
+  float: right;
+} */
