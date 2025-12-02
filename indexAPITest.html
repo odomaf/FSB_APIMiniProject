@@ -1,0 +1,510 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JACL - Find Your favorite shows!</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="hero-container">
+      <img
+        src="./assets/Hero.png"
+        alt="Background"
+        class="base-img"
+        id="hero"
+      />
+
+      <div class="search-overlay">
+        <input
+          type="text"
+          placeholder="Watch now!"
+          class="w-24 input input-sm btn rounded-full"
+        />
+      </div>
+
+      <div class="logo-overlay">
+        <div id="app">
+          <div class="doors">
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main data-theme="dark">
+      <div id="headerBar">
+        <div class="navbar bg-base-100 shadow-sm">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="-1"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li><a>TV Shows</a></li>
+                <li>
+                  <a>Movies</a>
+                </li>
+                <li><a>Contact</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-ghost text-xl"></a>
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+              <li><a>Movies</a></li>
+              <li>
+                <details>
+                  <summary>TV Shows</summary>
+                  <ul class="p-2 bg-base-100 w-40 z-1">
+                    <li><a>Submenu 1</a></li>
+                    <li><a>Submenu 2</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a class="btn" id="movie">movie</a>
+          </div>
+        </div>
+      </div>
+
+      <article id="topFaves" data-theme="dark">
+        <ul class="list bg-base-100 rounded-box shadow-md">
+          <li class="p-4 pb-2 text-lg opacity-60 tracking-wide">
+            Top 10 Faves
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">1</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Naruto</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">2</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Ellie Beilish</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">3</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">4</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">5</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">6</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">7</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">8</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">9</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+          <li class="list-row">
+            <div class="text-4xl font-thin opacity-30 tabular-nums">10</div>
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+              />
+            </div>
+            <div class="list-col-grow">
+              <div>Sabrino Gardener</div>
+              <div class="text-xs uppercase font-semibold opacity-60"></div>
+            </div>
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </article>
+      <hr />
+      <!-- Test -->
+
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <article id="tvShows">
+          <header><h1>TV Shows</h1></header>
+          <h4>
+            Title :
+            <span id="title"
+              >Dynamic content will be loaded here using the title id tag. I
+              used span tags for convenient styling and because I learned it's
+              best practice for links.</span
+            >
+          </h4>
+          <h4>Plot : <span id="plot"></span></h4>
+          <h4>Year : <span id="year"></span></h4>
+          <h4>Runtime : <span id="runtime"></span></h4>
+          <h4>Genre : <span id="genre"></span></h4>
+          <h4>User Rating : <span id="userRating"></span></h4>
+          <h4>Critic Score : <span id="criticScore"></span></h4>
+          <div class="mediaPoster"></div>
+        </article>
+        <div class="hover-3d">
+          <!-- content -->
+          <figure class="w-60 rounded-2xl">
+            <img
+              src="https://m.media-amazon.com/images/I/61fzbYJGjqL._SL1000_.jpg"
+              alt="Tailwind CSS 3D card"
+            />
+          </figure>
+          <!-- 8 empty divs needed for the 3D effect -->
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <hr />
+      </ul>
+
+      <ul class="list bg-base-100 rounded-box shadow-md">
+        <article id="movies">
+          <header><h1>Movies</h1></header>
+          <h4>Title : <span id="title"></span></h4>
+          <h4>Plot : <span id="plot"></span></h4>
+          <h4>Year : <span id="year"></span></h4>
+          <h4>Runtime : <span id="runtime"></span></h4>
+          <h4>Genre : <span id="genre"></span></h4>
+          <h4>User Rating : <span id="userRating"></span></h4>
+          <h4>Critic Score : <span id="criticScore"></span></h4>
+          <div class="mediaPoster">
+            <ul class="list bg-base-100 rounded-box shadow-md">
+              <article id="tvShows">
+                <header><h1>TV Shows</h1></header>
+                <h4>
+                  Title :
+                  <span id="title"
+                    >Dynamic content will be loaded here using the title id tag.
+                    I used span tags for convenient styling and because I
+                    learned it's best practice for links.</span
+                  >
+                </h4>
+                <h4>Plot : <span id="plot"></span></h4>
+                <h4>Year : <span id="year"></span></h4>
+                <h4>Runtime : <span id="runtime"></span></h4>
+                <h4>Genre : <span id="genre"></span></h4>
+                <h4>User Rating : <span id="userRating"></span></h4>
+                <h4>Critic Score : <span id="criticScore"></span></h4>
+                <div class="mediaPoster"></div>
+              </article>
+              <div class="hover-3d">
+                <!-- content -->
+                <figure class="w-60 rounded-2xl">
+                  <img
+                    src="https://static.beebom.com/wp-content/uploads/2025/01/Naruto-the-Movie-Guardians-of-the-Crescent-Moon-Kingdom.jpg"
+                    alt="Tailwind CSS 3D card"
+                  />
+                </figure>
+                <!-- 8 empty divs needed for the 3D effect -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <hr />
+            </ul>
+          </div>
+        </article>
+      </ul>
+    </main>
+    <footer></footer>
+    <script src="./test.js"></script>
+  </body>
+</html>
