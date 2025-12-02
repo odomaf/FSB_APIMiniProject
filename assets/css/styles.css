@@ -1,4 +1,13 @@
-/* --- Original Container Styles --- */
+/* Anne experimenting with UX styling */
+.card {
+  width: 50%;
+}
+
+.collapse-title {
+  padding: 5px;
+}
+
+/* --- Original Container Styles Clifton Used--- */
 .hero-container {
   position: relative;
   display: inline-block;
