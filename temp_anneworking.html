@@ -1,0 +1,186 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JACL - Find Your favorite shows!</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <!-- <div class="hero-container">
+      <img
+        src="./assets/Hero.png"
+        alt="Background"
+        class="base-img"
+        id="hero"
+      />
+
+      <div class="search-overlay">
+        <input
+          type="text"
+          placeholder="Watch now!"
+          class="w-24 input input-sm btn rounded-full"
+        />
+      </div>
+
+      <div class="logo-overlay">
+        <div id="app">
+          <div class="doors">
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+            <div class="door"><div class="boxes"></div></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <container class="inline-flex">
+      <!--top 10 section-->
+      <article id="topFaves" data-theme="">
+        <ul class="list bg-base-100 rounded-box shadow-md">
+          <!--List title-->
+          <li class="p-4 pb-2 text-5xl opacity-100 tracking-wide">
+            Top 10 Faves
+          </li>
+
+          <li class="list-row">
+            <!--List number-->
+            <div class="text-4xl font-thin opacity-90 tabular-nums">1</div>
+
+            <!--Thumbnail anime-->
+            <div>
+              <img
+                class="size-10 rounded-box"
+                src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+              />
+            </div>
+
+            <div class="list-col-grow">
+              <!--anime title-->
+              <div
+                class="text-3xl uppercase font-semibold opacity-100 anime-title"
+              >
+                Naruto
+              </div>
+            </div>
+
+            <button class="btn btn-square btn-ghost">
+              <svg
+                class="size-[1.2em]"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M6 3L20 12 6 21 6 3z"></path>
+                </g>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </article>
+
+      <hr />
+
+      <section data-theme="">
+        <!-- name of each tab group should be unique -->
+        <div class="tabs tabs-box">
+          <input
+            id="movie"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="Movies"
+            checked="checked"
+          />
+          <!--MOVIE CARDS GO HERE-->
+
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <div class="card card-side bg-base-100 shadow-sm w-80">
+              <figure>
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+                  alt="Movie"
+                />
+              </figure>
+              <div class="card-body">
+                <h2 class="card-title">New movie is released!</h2>
+                <p>Click the button to watch on Jetflix app.</p>
+                <div class="card-actions justify-end">
+                  <!--collapsing box-->
+                  <div
+                    tabindex="0"
+                    class="bg-primary text-primary-content focus:bg-secondary focus:text-secondary-content collapse"
+                  >
+                    <div class="collapse-title font-semibold">
+                      Where can I watch?
+                    </div>
+                    <div class="collapse-content text-sm">
+                      (list or icons of streaming services)
+                    </div>
+                  </div>
+                  <!-- <button class="btn btn-primary">Watch</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input
+            id="tv_series"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="TV Series"
+          />
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <!--TV SERIES CARDS GO HERE-->
+          </div>
+
+          <input
+            id="tv_special"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="TV Specials"
+          />
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <!--TV SPECIALS CARDS GO HERE-->
+          </div>
+
+          <input
+            id="tv_miniseries"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="TV Miniseries"
+          />
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <!--TV MINISERIES CARDS GO HERE-->
+          </div>
+          <input
+            id="short_film"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="Short Films"
+          />
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <!--SHORT FILMS CARDS GO HERE-->
+          </div>
+        </div>
+      </section>
+    </container>
+    <footer></footer>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
