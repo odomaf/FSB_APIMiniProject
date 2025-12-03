@@ -11,21 +11,111 @@ console.log(`searchValue: ${searchValue}`);
 let wmRequestURL = `https://api.watchmode.com/v1/search?search_field=${searchField}&search_value=${searchValue}&apiKey=${watchModeAPIKey}`;
 console.log("URL Request:", wmRequestURL);
 
-//fetch instances of searchValue from watchmode
-fetch(wmRequestURL)
-  .then(function (response) {
-    console.log("Raw Response Object:", response);
-    console.log(`HTTP Status: ${response.status}`);
-    return response.json();
-  })
-  .then(function (data) {
-    console.log("Parsed JSON Data: ", data);
-  })
-  .catch(function (error) {
-    console.error(`Network or fetch error: ${error}`);
-  });
+// let fetchDetailsApiRequests = [];
+// //fetch instances of searchValue from watchmode
+// fetch(wmRequestURL)
+//   .then(function (response) {
+//     console.log("Raw Response Object:", response);
+//     console.log(`HTTP Status: ${response.status}`);
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log("Parsed JSON Data: ", data.title_results);
+//     console.log(`data.title_results.length: ${data.title_results.length}`);
+//     for (i = 0; i < data.title_results.length; i++) {
+//       // console.log(`TItle: ${data.title_results[i].id}`);
+//       const url = `https://api.watchmode.com/v1/title/${data.title_results[i].id}/details/?apiKey=FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin`;
+//       fetchDetailsApiRequests.push(url);
+//       console.log(`URL: ${fetchDetailsApiRequests[i]}`);
+//       console.log(`array length: ${fetchDetailsApiRequests.length}`);
+//     }
+//   })
+//   .catch(function (error) {
+//     console.error(`Network or fetch error: ${error}`);
+//   });
 
-//----EVENT LISTENERS AND INTERFACE BEHAVIOR-----
+let media = {
+  id: "3171191",
+  title: "One Piece",
+  plot_overview:
+    "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure.",
+  type: "tv_series",
+  runtime_minutes: null,
+  release_date: "2023-08-31",
+  genre_names: ["Action", "Adventure", "Fantasy"],
+  user_rating: "8.2",
+  critic_score: "77",
+  poster: "https://cdn.watchmode.com/posters/03171191_poster_w342.jpg",
+  network_names: ["Netflix"],
+  trailer: "https://www.youtube.com/watch?v=Ades3pQbeh8",
+};
+console.log(media);
+//using the id from the returned data to make unique id for card
+const cardId = `card_${media.id}`;
+//create outer div element for card and set attributes
+const cardDiv = document.createElement("div");
+cardDiv.setAttribute("id", cardId);
+cardDiv.setAttribute("class", "card card-side bg-base-100 shadow-sm w-80");
+// `<div id="card${media.id}" class="card card-side bg-base-100 shadow-sm w-80"></div>`;
+
+const cardFigure = document.createElement("figure");
+cardDiv.appendChild(cardFigure);
+
+const cardPoster = document.createElement("img");
+cardPoster.setAttribute("src", media.poster);
+cardPoster.setAttribute("alt", media.type);
+cardPoster.setAttribute("class", "poster");
+cardFigure.appendChild(cardPoster);
+
+const movieTabEl = document.getElementById("movies-tab");
+
+movieTabEl.appendChild(cardDiv);
+
+// <div class="card card-side bg-base-100 shadow-sm w-80">
+//   <figure>
+//     <img
+//       src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+//       alt="Movie"
+//     />
+//   </figure>
+//   <div class="card-body">
+//     <h2 class="card-title">New movie is released!</h2>
+//     <p>Click the button to watch on Jetflix app.</p>
+//     <div class="card-actions justify-end">
+//       <!--collapsing box-->
+//       <div
+//         tabindex="0"
+//         class="bg-primary text-primary-content focus:bg-secondary focus:text-secondary-content collapse"
+//       >
+//         <div class="collapse-title font-semibold">
+//           Where can I watch?
+//         </div>
+//         <div class="collapse-content text-sm">
+//           (list or icons of streaming services)
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+// const movieDetails = [];
+// console.log(
+//   `fetchDetailsApiRequests.length: ${fetchDetailsApiRequests.length}`
+// );
+// console.log(`first fetch url: ${fetchDetailsApiRequests[0]}`);
+// fetch(fetchDetailsApiRequests[0])
+//   .then(function (response) {
+//     console.log("Raw Response Object:", response);
+//     console.log(`HTTP Status: ${response.status}`);
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log("Parsed JSON Data: ", data);
+//   })
+//   .catch(function (error) {
+//     console.error(`Network or fetch error: ${error}`);
+//   });
+
+//----EVENT LISTENERS AND INTERFACE BEHAVIOR FROM CLIFTON ORIGINAL PLAN-----
 // We use 'load' instead of 'DOMContentLoaded' to ensure CSS and Images
 // are fully loaded so we can calculate the correct heights.
 window.addEventListener("load", () => {
