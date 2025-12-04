@@ -25,6 +25,44 @@ fetch(wmRequestURL)
     console.error(`Network or fetch error: ${error}`);
   });
 
+//-------Dynamic Card Functionality------------
+let media = {
+  id: "3171191",
+  title: "One Piece",
+  plot_overview:
+    "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure.",
+  type: "tv_series",
+  runtime_minutes: null,
+  release_date: "2023-08-31",
+  genre_names: ["Action", "Adventure", "Fantasy"],
+  user_rating: "8.2",
+  critic_score: "77",
+  poster: "https://cdn.watchmode.com/posters/03171191_poster_w342.jpg",
+  network_names: ["Netflix"],
+  trailer: "https://www.youtube.com/watch?v=Ades3pQbeh8",
+};
+console.log(media);
+//using the id from the returned data to make unique id for card
+const cardId = `card_${media.id}`;
+//create outer div element for card and set attributes
+const cardDiv = document.createElement("div");
+cardDiv.setAttribute("id", cardId);
+cardDiv.setAttribute("class", "card card-side bg-base-100 shadow-sm w-80");
+// `<div id="card${media.id}" class="card card-side bg-base-100 shadow-sm w-80"></div>`;
+
+const cardFigure = document.createElement("figure");
+cardDiv.appendChild(cardFigure);
+
+const cardPoster = document.createElement("img");
+cardPoster.setAttribute("src", media.poster);
+cardPoster.setAttribute("alt", media.type);
+cardPoster.setAttribute("class", "poster");
+cardFigure.appendChild(cardPoster);
+
+const movieTabEl = document.getElementById("movies-tab");
+
+movieTabEl.appendChild(cardDiv);
+  
 //----EVENT LISTENERS AND INTERFACE BEHAVIOR-----
 // We use 'load' instead of 'DOMContentLoaded' to ensure CSS and Images
 // are fully loaded so we can calculate the correct heights.
