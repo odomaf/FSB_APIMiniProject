@@ -1,4 +1,5 @@
-let media = [
+//object array for testing card display
+let watchmode = [
   {
     id: "3171191",
     title: "One Piece",
@@ -89,7 +90,7 @@ let media = [
     trailer: null,
   },
 ];
-console.log(media);
+//console.log(watchmode);
 
 //takes the string that should be the content of the list item,
 //turn it into an li element
@@ -103,9 +104,27 @@ function convertToListItem(liContent) {
   return liEl;
 }
 
-function createCard(media) {
+function getCleanString(key, content) {
+  // console.log(
+  //   `Checking for null for with key: ${key} and content ${content}`
+  // );
+  switch (key) {
+    case "critic_score":
+      if (content == "null" || content == "undefined") {
+        //console.log(`We have determined ${content} is null or undefined`);
+        content = "Not reviewed by critics";
+      } else {
+        //console.log(`We have determined content is fine`);
+        content = `${content}/100`;
+      }
+      break;
+  }
+
+  return content;
+}
+function createCard(watchmode) {
   //using the id from the returned data to make unique id for card
-  const cardId = `card_${media.id}`;
+  const cardId = `card_${watchmode.id}`;
 
   //create outer div element for card and set attributes
   const cardDiv = document.createElement("div");
@@ -118,8 +137,8 @@ function createCard(media) {
 
   //create the image element with the link to the poster from the watchmode object, append to figure
   const cardPoster = document.createElement("img");
-  cardPoster.setAttribute("src", media.poster);
-  cardPoster.setAttribute("alt", media.type);
+  cardPoster.setAttribute("src", watchmode.poster);
+  cardPoster.setAttribute("alt", watchmode.type);
   cardPoster.setAttribute("class", "poster w-24");
   cardFigure.appendChild(cardPoster);
 
@@ -130,12 +149,12 @@ function createCard(media) {
   //create the card title and set it to the title from the watchmode object. append to card body
   const cardTitle = document.createElement("h2");
   cardTitle.setAttribute("class", "card-title");
-  cardTitle.innerHTML = media.title;
+  cardTitle.innerHTML = watchmode.title;
   cardBody.appendChild(cardTitle);
 
   //create cardReleaseDate element, set to release date from watchmode object, append to card body
   let cardReleaseDate = document.createElement("p");
-  cardReleaseDate.innerHTML = media.release_date;
+  cardReleaseDate.innerHTML = watchmode.release_date;
   cardBody.appendChild(cardReleaseDate);
 
   //create list to hold other key information like runtime, genres, etc
@@ -143,28 +162,31 @@ function createCard(media) {
   cardList.setAttribute("style", "list-style-type: none");
 
   //create list items to go in the list
-  const genresLi = convertToListItem(media.genre_names.join(", "));
+  const genresLi = convertToListItem(watchmode.genre_names.join(", "));
   genresLi.style.fontStyle = "italic";
   cardList.appendChild(genresLi);
   //THIS IS THE RUN TIME STUFF, IT DOES NOT APPLY TO TV SERIES SO
   //CONDITIONAL STUFF WILL NEED TO HAPPEN HERE
   const runningTimeLi = convertToListItem(
-    `Running Time: ${media.runtime_minutes}m`
+    `Running Time: ${watchmode.runtime_minutes}m`
   );
   cardList.appendChild(runningTimeLi);
   const userRatingLi = convertToListItem(
-    `User Rating: ${media.user_rating}/10`
+    `User Rating: ${watchmode.user_rating}/10`
   );
   cardList.appendChild(userRatingLi);
-  const criticRatingLi = convertToListItem(
-    `Critic Rating: ${media.critic_score}/100`
+  let criticScore = getCleanString(
+    `${watchmode.title}`,
+    "critic_score",
+    `${watchmode.critic_score}`
   );
+  const criticRatingLi = convertToListItem(`Critic Rating: ${criticScore}`);
   cardList.appendChild(criticRatingLi);
   let networkNames = "";
-  if (media.network_names === null) {
+  if (watchmode.network_names === null) {
     networkNames = "No platforms";
   } else {
-    networkNames = media.network_names.join(", ");
+    networkNames = watchmode.network_names.join(", ");
   }
   const streamingLi = convertToListItem(`Where to watch: ${networkNames}`);
   cardList.appendChild(streamingLi);
@@ -172,7 +194,7 @@ function createCard(media) {
 
   //create anchor tag for trailer element, set to trailer url from watchmode object, append to cardBody
   const cardTrailerUrl = document.createElement("a");
-  cardTrailerUrl.setAttribute("href", media.trailer);
+  cardTrailerUrl.setAttribute("href", watchmode.trailer);
   cardTrailerUrl.setAttribute(
     "class",
     "text-primary hover:underline font-semibold"
@@ -183,7 +205,7 @@ function createCard(media) {
   //create cardDescription element to hold plot overview, set to overview from watchmode object
   let cardDescriptionDiv = document.createElement("div");
   cardDescriptionDiv.setAttribute("class", "tooltip tooltip-bottom");
-  cardDescriptionDiv.setAttribute("data-tip", media.plot_overview);
+  cardDescriptionDiv.setAttribute("data-tip", watchmode.plot_overview);
   let descriptionHoverEl = document.createElement("button");
   descriptionHoverEl.setAttribute("class", "btn btn-primary");
   descriptionHoverEl.innerHTML = "Read Summary";
@@ -200,7 +222,7 @@ function setTabLabel(id, label) {
   tab.setAttribute("aria-label", label);
 }
 
-//counting variables for the loop to track how many of each type of media we have to add to tabs
+//counting variables for the loop to track how many of each type of watchmode we have to add to tabs
 let countMovies = 0;
 let countTvSeries = 0;
 let countTvSpecials = 0;
@@ -216,51 +238,34 @@ const tvMoviesGridEl = document.getElementById("tv-movies-grid");
 const tvMiniseriesGridEl = document.getElementById("tv-miniseries-grid");
 const shortFilmsGridEl = document.getElementById("short-films-grid");
 
-//add the card to the correct tab (this will be a case statement checking watchmode object type and appending based on that)
-for (i = 0; i < media.length; i++) {
-  const card = createCard(media[i]);
-  console.log(`${media[i].title} is ${media[i].type}`);
+//loop through objects in watchmode results array and create cards then display them for each object
+for (i = 0; i < watchmode.length; i++) {
+  const card = createCard(watchmode[i]);
+  // console.log(`${watchmode[i].title} is ${watchmode[i].type}`);
 
-  switch (media[i].type) {
+  //add the card to the correct tab (this will be a case statement checking watchmode object type and appending based on that)
+  switch (watchmode[i].type) {
     case "movie":
-      console.log(
-        `${media[i].title} is a movie, and we're appending it to the movie grid`
-      );
       movieGridEl.appendChild(card);
       countMovies++;
       break;
     case "tv_series":
-      console.log(
-        `${media[i].title} is a TV Series, and we're appending it to the TV Series grid`
-      );
       tvSeriesGridEl.appendChild(card);
       countTvSeries++;
       break;
     case "tv_special":
-      console.log(
-        `${media[i].title} is a TV Special, and we're appending it to the TV Specials grid`
-      );
       tvSpecialsGridEl.appendChild(card);
       countTvSpecials++;
       break;
     case "tv_movie":
-      console.log(
-        `${media[i].title} is a TV Movie, and we're appending it to the TV Movies grid`
-      );
       tvMoviesGridEl.appendChild(card);
       countTvMovies++;
       break;
     case "tv_miniseries":
-      console.log(
-        `${media[i].title} is a TV Miniseries, and we're appending it to the TV Miniseries grid`
-      );
       tvMiniseriesGridEl.appendChild(card);
       countTvMiniseries++;
       break;
     case "short_film":
-      console.log(
-        `${media[i].title} is a short film, and we're appending it to the Short Films grid`
-      );
       shortFilmsGridEl.appendChild(card);
       countShortFilms++;
       break;
@@ -268,16 +273,11 @@ for (i = 0; i < media.length; i++) {
       break;
   }
 }
+//set labels on tabs to include the number of cards on that tab, so users
+//can easily see how many of each type are available to check out
 setTabLabel("movies", `Movies (${countMovies})`);
 setTabLabel("tv_series", `TV Series (${countTvSeries})`);
 setTabLabel("tv_specials", `TV Specials (${countTvSpecials})`);
 setTabLabel("tv_movies", `TV Movies (${countTvMovies})`);
 setTabLabel("tv_miniseries", `TV Miniseries (${countTvMiniseries})`);
 setTabLabel("short_films", `Short Films (${countShortFilms})`);
-
-// if (countTvMiniseries == 0) {
-//   // let msTextNode = document.createTextNode("This anime has no miniseries");
-//   tvMiniseriesGridEl.appendChild(
-//     document.createTextNode("This anime has no miniseries")
-//   );
-//}
