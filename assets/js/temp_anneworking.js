@@ -110,7 +110,7 @@ function createCard(media) {
   //create outer div element for card and set attributes
   const cardDiv = document.createElement("div");
   cardDiv.setAttribute("id", cardId);
-  cardDiv.setAttribute("class", "card card-side bg-base-100 shadow-sm w-80");
+  cardDiv.setAttribute("class", "card card-side bg-base-100 shadow-sm m-4");
 
   //create figure element for the card that holds the image
   const cardFigure = document.createElement("figure");
@@ -120,7 +120,7 @@ function createCard(media) {
   const cardPoster = document.createElement("img");
   cardPoster.setAttribute("src", media.poster);
   cardPoster.setAttribute("alt", media.type);
-  cardPoster.setAttribute("class", "poster w-27");
+  cardPoster.setAttribute("class", "poster w-24");
   cardFigure.appendChild(cardPoster);
 
   //create the card body that will go to the right of the image on the card and hold the rest of the content
@@ -149,7 +149,7 @@ function createCard(media) {
   //THIS IS THE RUN TIME STUFF, IT DOES NOT APPLY TO TV SERIES SO
   //CONDITIONAL STUFF WILL NEED TO HAPPEN HERE
   const runningTimeLi = convertToListItem(
-    `Running Time: ${media.runtime_minutes}`
+    `Running Time: ${media.runtime_minutes}m`
   );
   cardList.appendChild(runningTimeLi);
   const userRatingLi = convertToListItem(
@@ -195,9 +195,89 @@ function createCard(media) {
   return cardDiv;
 }
 
+function setTabLabel(id, label) {
+  const tab = document.getElementById(id);
+  tab.setAttribute("aria-label", label);
+}
+
+//counting variables for the loop to track how many of each type of media we have to add to tabs
+let countMovies = 0;
+let countTvSeries = 0;
+let countTvSpecials = 0;
+let countTvMovies = 0;
+let countTvMiniseries = 0;
+let countShortFilms = 0;
+
+//grab the grid elements on each tab to populate in the loop
+const tvSeriesGridEl = document.getElementById("tv-series-grid");
+const movieGridEl = document.getElementById("movies-grid");
+const tvSpecialsGridEl = document.getElementById("tv-specials-grid");
+const tvMoviesGridEl = document.getElementById("tv-movies-grid");
+const tvMiniseriesGridEl = document.getElementById("tv-miniseries-grid");
+const shortFilmsGridEl = document.getElementById("short-films-grid");
+
 //add the card to the correct tab (this will be a case statement checking watchmode object type and appending based on that)
 for (i = 0; i < media.length; i++) {
-  const movieTabEl = document.getElementById("movies-tab");
   const card = createCard(media[i]);
-  movieTabEl.appendChild(card);
+  console.log(`${media[i].title} is ${media[i].type}`);
+
+  switch (media[i].type) {
+    case "movie":
+      console.log(
+        `${media[i].title} is a movie, and we're appending it to the movie grid`
+      );
+      movieGridEl.appendChild(card);
+      countMovies++;
+      break;
+    case "tv_series":
+      console.log(
+        `${media[i].title} is a TV Series, and we're appending it to the TV Series grid`
+      );
+      tvSeriesGridEl.appendChild(card);
+      countTvSeries++;
+      break;
+    case "tv_special":
+      console.log(
+        `${media[i].title} is a TV Special, and we're appending it to the TV Specials grid`
+      );
+      tvSpecialsGridEl.appendChild(card);
+      countTvSpecials++;
+      break;
+    case "tv_movie":
+      console.log(
+        `${media[i].title} is a TV Movie, and we're appending it to the TV Movies grid`
+      );
+      tvMoviesGridEl.appendChild(card);
+      countTvMovies++;
+      break;
+    case "tv_miniseries":
+      console.log(
+        `${media[i].title} is a TV Miniseries, and we're appending it to the TV Miniseries grid`
+      );
+      tvMiniseriesGridEl.appendChild(card);
+      countTvMiniseries++;
+      break;
+    case "short_film":
+      console.log(
+        `${media[i].title} is a short film, and we're appending it to the Short Films grid`
+      );
+      shortFilmsGridEl.appendChild(card);
+      countShortFilms++;
+      break;
+    default:
+      break;
+  }
 }
+setTabLabel("movies", `Movies (${countMovies})`);
+setTabLabel("tv_series", `TV Series (${countTvSeries})`);
+setTabLabel("tv_specials", `TV Specials (${countTvSpecials})`);
+setTabLabel("tv_movies", `TV Movies (${countTvMovies})`);
+setTabLabel("tv_miniseries", `TV Miniseries (${countTvMiniseries})`);
+setTabLabel("short_films", `Short Films (${countShortFilms})`);
+
+// if (countTvMiniseries == 0) {
+//   // let msTextNode = document.createTextNode("This anime has no miniseries");
+//   tvMiniseriesGridEl.appendChild(
+//     document.createTextNode("This anime has no miniseries")
+//   );
+//}
