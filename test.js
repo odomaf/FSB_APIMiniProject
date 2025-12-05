@@ -1,12 +1,13 @@
 const baseURL = "https://api.jikan.moe/v4";
 const endPoint = "/top/anime";
 const favorite = document.getElementById("favorite");
+const popular = document.getElementById("popular");
 const titles = [];
 
 favorite.addEventListener("click", function (event) {
   console.log(event.target);
-  console.log(event.target.textContent);
-  rankingType = event.target.textContent.trim();
+  console.log(event.target.getAttribute("data-filter"));
+  rankingType = event.target.getAttribute("data-filter");
   parameter = `?filter=${rankingType}`;
   requestURL = baseURL + endPoint + parameter + "&limit=10";
   console.log(requestURL);
@@ -27,12 +28,91 @@ favorite.addEventListener("click", function (event) {
         javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
       );
       console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
-      let animeData = {
-        title: javaScriptObjectfromJikan.data[0]["title_english"],
-        rank: javaScriptObjectfromJikan.data[0].rank,
-        "small image url":
-          javaScriptObjectfromJikan.data[0].images.jpg.small_image_url,
-      };
+
+      for (let index = 0; index < 10; index++) {
+        let animeData = {
+          jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
+          jikanRank: javaScriptObjectfromJikan.data[index].rank,
+          jikanSmallImageUrl:
+            javaScriptObjectfromJikan.data[index].images.jpg.small_image_url,
+        };
+        titles.push(animeData);
+      }
+    });
+});
+
+popular.addEventListener("click", function (event) {
+  console.log(event.target);
+  rankingType = event.target.getAttribute("data-filter");
+  parameter = `?filter=${rankingType}`;
+  requestURL = baseURL + endPoint + parameter + "&limit=10";
+  console.log(requestURL);
+
+  fetch(requestURL)
+    .then(function (responseFromJikan) {
+      return responseFromJikan.json();
+    })
+    .then(function (javaScriptObjectfromJikan) {
+      console.log(javaScriptObjectfromJikan);
+      //OBJECTIVE : CREATE AN OBJECT TO STORE DATA IN A WAY USABLE TO ME
+      // console.log(javaScriptObjectfromJikan["data"]);
+      console.log(javaScriptObjectfromJikan.data);
+      console.log(javaScriptObjectfromJikan.data[0]);
+      console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
+      console.log(javaScriptObjectfromJikan.data[0].rank);
+      console.log(
+        javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
+      );
+      console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
+
+      for (let index = 0; index < 10; index++) {
+        let animeData = {
+          jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
+          jikanRank: javaScriptObjectfromJikan.data[index].rank,
+          jikanSmallImageUrl:
+            javaScriptObjectfromJikan.data[index].images.jpg.small_image_url,
+        };
+        titles.push(animeData);
+      }
+    });
+});
+
+// WatchMode API
+
+
+jamesTopTenBtn.addEventListener("click", function (event) {
+  const baseURL = "https://api.watchmode.com/v1";
+  const endPoint = "/search";
+  parameter = `?search_field=name&search_value=${title.jikanTitle}`;
+  requestURL = baseURL + endPoint + parameter;
+  console.log(requestURL);
+
+  fetch(requestURL)
+    .then(function (responseFromJikan) {
+      return responseFromJikan.json();
+    })
+    .then(function (javaScriptObjectfromJikan) {
+      console.log(javaScriptObjectfromJikan);
+      //OBJECTIVE : CREATE AN OBJECT TO STORE DATA IN A WAY USABLE TO ME
+      // console.log(javaScriptObjectfromJikan["data"]);
+      console.log(javaScriptObjectfromJikan.data);
+      console.log(javaScriptObjectfromJikan.data[0]);
+      console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
+      console.log(javaScriptObjectfromJikan.data[0].rank);
+      console.log(
+        javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
+      );
+      console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
+
+      for (let index = 0; index < 10; index++) {
+        let animeData = {
+          jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
+          jikanRank: javaScriptObjectfromJikan.data[index].rank,
+          jikanSmallImageUrl:
+            javaScriptObjectfromJikan.data[index].images.jpg.small_image_url,
+        };
+        titles.push(animeData);
+      }
     });
 });
 
