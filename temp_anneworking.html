@@ -69,7 +69,7 @@
         <!-- name of each tab group should be unique -->
         <div class="tabs tabs-box">
           <input
-            id="movie"
+            id="movies"
             type="radio"
             name="my_tabs_6"
             class="tab"
@@ -78,9 +78,11 @@
           />
           <div
             id="movies-tab"
-            class="tab-content bg-base-100 border-base-300 p-6 columns-3"
+            class="tab-content bg-base-100 border-base-300 p-6 content-start"
           >
-            <!--MOVIE CARDS GO HERE-->
+            <div id="movies-grid" class="grid grid-cols-3">
+              <!--MOVIE CARDS GO HERE-->
+            </div>
           </div>
 
           <input
@@ -94,18 +96,35 @@
             id="tv-series-tab"
             class="tab-content bg-base-100 border-base-300 p-6"
           >
-            <!--TV SERIES CARDS GO HERE-->
+            <div id="tv-series-grid" class="grid grid-cols-3">
+              <!--TV SERIES CARDS GO HERE-->
+            </div>
           </div>
 
           <input
-            id="tv_special"
+            id="tv_specials"
             type="radio"
             name="my_tabs_6"
             class="tab"
             aria-label="TV Specials"
           />
           <div class="tab-content bg-base-100 border-base-300 p-6">
-            <!--TV SPECIALS CARDS GO HERE-->
+            <div id="tv-specials-grid" class="grid grid-cols-3">
+              <!--TV SPECIALS CARDS GO HERE-->
+            </div>
+          </div>
+
+          <input
+            id="tv_movies"
+            type="radio"
+            name="my_tabs_6"
+            class="tab"
+            aria-label="TV Movies"
+          />
+          <div class="tab-content bg-base-100 border-base-300 p-6">
+            <div id="tv-movies-grid" class="grid grid-cols-3">
+              <!--TV SPECIALS CARDS GO HERE-->
+            </div>
           </div>
 
           <input
@@ -116,17 +135,21 @@
             aria-label="TV Miniseries"
           />
           <div class="tab-content bg-base-100 border-base-300 p-6">
-            <!--TV MINISERIES CARDS GO HERE-->
+            <div id="tv-miniseries-grid" class="grid grid-cols-3">
+              <!--TV MINISERIES CARDS GO HERE-->
+            </div>
           </div>
           <input
-            id="short_film"
+            id="short_films"
             type="radio"
             name="my_tabs_6"
             class="tab"
             aria-label="Short Films"
           />
           <div class="tab-content bg-base-100 border-base-300 p-6">
-            <!--SHORT FILMS CARDS GO HERE-->
+            <div id="short-films-grid" class="grid grid-cols-3">
+              <!--SHORT FILMS CARDS GO HERE-->
+            </div>
           </div>
         </div>
       </section>
