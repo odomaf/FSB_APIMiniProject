@@ -29,6 +29,8 @@ favorite.addEventListener("click", function (event) {
       );
       console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
 
+      titles.splice(0,titles.length);
+
       for (let index = 0; index < 10; index++) {
         let animeData = {
           jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
@@ -65,6 +67,8 @@ popular.addEventListener("click", function (event) {
       );
       console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
 
+      titles.splice(0,titles.length);
+
       for (let index = 0; index < 10; index++) {
         let animeData = {
           jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
@@ -80,23 +84,105 @@ popular.addEventListener("click", function (event) {
 // WatchMode API
 //'https://api.watchmode.com/v1/search/?apiKey=YOUR_API_KEY&search_field=name&search_value=Ed%20Wood'
 
+function addListItem(titles) {
+  const topFaves = document.getElementById("topFaves");
 
-jamesTopTenBtn.addEventListener("click", function (event) {
-  const baseURL = "https://api.watchmode.com/v1";
-  const endPoint = "/search";
-  parameter = `/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=${title.jikanTitle}`;
-  requestURL = baseURL + endPoint + parameter;
-  console.log(requestURL);
+  const topFavesList = document.createElement("ul");
+  topFavesList.className = "list bg-base-100 rounded-box shadow-md";
 
-  fetch(requestURL)
-    .then(function (responseFromWatchMode) {
-      return responseFromWatchMode.json();
-    })
-    .then(function (javaScriptObjectFromWatchMode) {
-      console.log(javaScriptObjectFromWatchMode);
-  
+  const topFavesRows = titles.map((title) => {
+    const titleRow = document.createElement("li");
+    titleRow.className = "list-row";
+
+    // const titleRank = document.createElement("div");
+    // titleRank.className = "text-4xl font-thin opacity-90 tabular-nums";
+    // titleRank.innerHTML = title.jikanRank;
+
+    const titleImgContainer = document.createElement("div");
+
+    const titleImage = document.createElement("img");
+    titleImage.className = "size-10 rounded-box";
+    titleImage.setAttribute("src", `${title.jikanSmallImageUrl}`);
+
+    titleImgContainer.appendChild(titleImage);
+
+    const titleNameContainer = document.createElement("div");
+    titleNameContainer.className = "list-col-grow";
+
+    const titleName = document.createElement("div");
+    titleName.className =
+      "text-3xl uppercase font-semibold opacity-100 anime-title";
+    titleName.innerHTML = `${title.jikanTitle}`;
+
+    titleNameContainer.appendChild(titleName);
+
+    const titleButton = document.createElement("button");
+    titleButton.className = "btn btn-square btn-ghost";
+
+    //Need to use createElementNS for svg and svg related tags
+
+    const svgNameSpace = "http://www.w3.org/2000/svg";
+
+    const titleButtonSvg = document.createElementNS(svgNameSpace, "svg");
+    titleButtonSvg.setAttribute("class", "size-[1.2em]"); //SVG non-depricated way to set class instead of .classname =
+    titleButtonSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    titleButtonSvg.setAttribute("viewBox", "0 0 24 24");
+
+    const titleButtonSvgGroup = document.createElementNS(svgNameSpace, "g");
+    const svgGroupAttributes = {
+      "stroke-linejoin": "round",
+      "stroke-linecap": "round",
+      "stroke-width": "2",
+      fill: "none",
+      stroke: "currentColor",
+    };
+
+    Object.entries(svgGroupAttributes).forEach(([key, value]) => {
+      titleButtonSvgGroup.setAttribute(key, value);
     });
-});
+
+    const titleButtonSvgPath = document.createElementNS(svgNameSpace, "path");
+    titleButtonSvgPath.setAttribute("d", "M6 3L20 12 6 21 6 3z");
+
+    titleButtonSvgGroup.appendChild(titleButtonSvgPath);
+    titleButtonSvg.appendChild(titleButtonSvgGroup);
+    titleButton.appendChild(titleButtonSvg);
+
+    // titleButton.addEventListener("click", function (event) {
+    //   const baseURL = "https://api.watchmode.com/v1";
+    //   const endPoint = "/search";
+    //   parameter = `/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=${title.jikanTitle}`;
+    //   requestURL = baseURL + endPoint + parameter;
+    //   console.log(requestURL);
+
+    //   fetch(requestURL)
+    //     .then(function (responseFromWatchMode) {
+    //       return responseFromWatchMode.json();
+    //     })
+    //     .then(function (javaScriptObjectFromWatchMode) {
+    //       console.log(javaScriptObjectFromWatchMode);
+    //     });
+    // });
+
+    // titleRow.appendChild(titleRank);
+    titleRow.appendChild(titleImgContainer);
+    titleRow.appendChild(titleNameContainer);
+    titleRow.appendChild(titleButton);
+
+    return titleRow;
+  });
+
+  const topListTitle = document.createElement("li");
+  topListTitle.className = "p-4 pb-2 text-5xl opacity-100 tracking-wide";
+  topListTitle.innerHTML = "Top 10";
+
+  topFavesList.appendChild(topListTitle);
+  for (const topFaveRow of topFavesRows) {
+    topFavesList.append(topFaveRow);
+  }
+
+  topFaves.append(topFavesList);
+}
 
 // console.log(titles);
 // titles.forEach((title) => {
