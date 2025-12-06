@@ -78,41 +78,23 @@ popular.addEventListener("click", function (event) {
 });
 
 // WatchMode API
+//'https://api.watchmode.com/v1/search/?apiKey=YOUR_API_KEY&search_field=name&search_value=Ed%20Wood'
 
 
 jamesTopTenBtn.addEventListener("click", function (event) {
   const baseURL = "https://api.watchmode.com/v1";
   const endPoint = "/search";
-  parameter = `?search_field=name&search_value=${title.jikanTitle}`;
+  parameter = `/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=${title.jikanTitle}`;
   requestURL = baseURL + endPoint + parameter;
   console.log(requestURL);
 
   fetch(requestURL)
-    .then(function (responseFromJikan) {
-      return responseFromJikan.json();
+    .then(function (responseFromWatchMode) {
+      return responseFromWatchMode.json();
     })
-    .then(function (javaScriptObjectfromJikan) {
-      console.log(javaScriptObjectfromJikan);
-      //OBJECTIVE : CREATE AN OBJECT TO STORE DATA IN A WAY USABLE TO ME
-      // console.log(javaScriptObjectfromJikan["data"]);
-      console.log(javaScriptObjectfromJikan.data);
-      console.log(javaScriptObjectfromJikan.data[0]);
-      console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
-      console.log(javaScriptObjectfromJikan.data[0].rank);
-      console.log(
-        javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
-      );
-      console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
-
-      for (let index = 0; index < 10; index++) {
-        let animeData = {
-          jikanTitle: javaScriptObjectfromJikan.data[index]["title_english"],
-          jikanRank: javaScriptObjectfromJikan.data[index].rank,
-          jikanSmallImageUrl:
-            javaScriptObjectfromJikan.data[index].images.jpg.small_image_url,
-        };
-        titles.push(animeData);
-      }
+    .then(function (javaScriptObjectFromWatchMode) {
+      console.log(javaScriptObjectFromWatchMode);
+  
     });
 });
 
