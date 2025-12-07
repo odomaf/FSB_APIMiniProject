@@ -3,31 +3,32 @@ const endPoint = "/top/anime";
 const favorite = document.getElementById("favorite");
 const popular = document.getElementById("popular");
 const titles = [];
+const watchmode = [];
 
 favorite.addEventListener("click", function (event) {
-  console.log(event.target);
-  console.log(event.target.getAttribute("data-filter"));
+  // console.log(event.target);
+  // console.log(event.target.getAttribute("data-filter"));
   rankingType = event.target.getAttribute("data-filter");
   parameter = `?filter=${rankingType}`;
   requestURL = baseURL + endPoint + parameter + "&limit=10";
-  console.log(requestURL);
+  // console.log(requestURL);
 
   fetch(requestURL)
     .then(function (responseFromJikan) {
       return responseFromJikan.json();
     })
     .then(function (javaScriptObjectfromJikan) {
-      console.log(javaScriptObjectfromJikan);
+      // console.log(javaScriptObjectfromJikan);
       //OBJECTIVE : CREATE AN OBJECT TO STORE DATA IN A WAY USABLE TO ME
       // console.log(javaScriptObjectfromJikan["data"]);
-      console.log(javaScriptObjectfromJikan.data);
-      console.log(javaScriptObjectfromJikan.data[0]);
-      console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
-      console.log(javaScriptObjectfromJikan.data[0].rank);
-      console.log(
-        javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
-      );
-      console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
+      // console.log(javaScriptObjectfromJikan.data);
+      // console.log(javaScriptObjectfromJikan.data[0]);
+      // console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
+      // console.log(javaScriptObjectfromJikan.data[0].rank);
+      // console.log(
+      //   javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
+      // );
+      // console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
 
       titles.splice(0,titles.length);
 
@@ -40,32 +41,34 @@ favorite.addEventListener("click", function (event) {
         };
         titles.push(animeData);
       }
+
+      addListItem(titles);
     });
 });
 
 popular.addEventListener("click", function (event) {
-  console.log(event.target);
+  // console.log(event.target);
   rankingType = event.target.getAttribute("data-filter");
   parameter = `?filter=${rankingType}`;
   requestURL = baseURL + endPoint + parameter + "&limit=10";
-  console.log(requestURL);
+  // console.log(requestURL);
 
   fetch(requestURL)
     .then(function (responseFromJikan) {
       return responseFromJikan.json();
     })
     .then(function (javaScriptObjectfromJikan) {
-      console.log(javaScriptObjectfromJikan);
+      // console.log(javaScriptObjectfromJikan);
       //OBJECTIVE : CREATE AN OBJECT TO STORE DATA IN A WAY USABLE TO ME
       // console.log(javaScriptObjectfromJikan["data"]);
-      console.log(javaScriptObjectfromJikan.data);
-      console.log(javaScriptObjectfromJikan.data[0]);
-      console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
-      console.log(javaScriptObjectfromJikan.data[0].rank);
-      console.log(
-        javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
-      );
-      console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
+      // console.log(javaScriptObjectfromJikan.data);
+      // console.log(javaScriptObjectfromJikan.data[0]);
+      // console.log(javaScriptObjectfromJikan.data[0]["title_english"]);
+      // console.log(javaScriptObjectfromJikan.data[0].rank);
+      // console.log(
+      //   javaScriptObjectfromJikan.data[0]["images"]["jpg"]["small_image_url"]
+      // );
+      // console.log(javaScriptObjectfromJikan.data[0].images.jpg.large_image_url);
 
       titles.splice(0,titles.length);
 
@@ -78,6 +81,8 @@ popular.addEventListener("click", function (event) {
         };
         titles.push(animeData);
       }
+
+      addListItem(titles);
     });
 });
 
@@ -87,8 +92,16 @@ popular.addEventListener("click", function (event) {
 function addListItem(titles) {
   const topFaves = document.getElementById("topFaves");
 
+  if (topFaves.children.length !== 0){
+      const ul = document.getElementById("anime-list");
+      if(ul !== null){
+        ul.remove();
+      }
+    }
+
   const topFavesList = document.createElement("ul");
   topFavesList.className = "list bg-base-100 rounded-box shadow-md";
+  topFavesList.id = "anime-list";
 
   const topFavesRows = titles.map((title) => {
     const titleRow = document.createElement("li");
@@ -148,21 +161,47 @@ function addListItem(titles) {
     titleButtonSvg.appendChild(titleButtonSvgGroup);
     titleButton.appendChild(titleButtonSvg);
 
-    // titleButton.addEventListener("click", function (event) {
-    //   const baseURL = "https://api.watchmode.com/v1";
-    //   const endPoint = "/search";
-    //   parameter = `/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=${title.jikanTitle}`;
-    //   requestURL = baseURL + endPoint + parameter;
-    //   console.log(requestURL);
+https://api.watchmode.com/v1/search/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=Attack on Titan
 
-    //   fetch(requestURL)
-    //     .then(function (responseFromWatchMode) {
-    //       return responseFromWatchMode.json();
-    //     })
-    //     .then(function (javaScriptObjectFromWatchMode) {
-    //       console.log(javaScriptObjectFromWatchMode);
-    //     });
-    // });
+
+    titleButton.addEventListener("click", function () {
+      const baseURL = "https://api.watchmode.com/v1";
+      const endPoint = "/search";
+      parameter = `/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P1wLb&search_field=name&search_value=${encodeURIComponent(title.jikanTitle)}`;
+      requestURL = baseURL + endPoint + parameter;
+      console.log(requestURL);
+
+      fetch(requestURL)
+        .then(function (responseFromWatchmode) {
+          return responseFromWatchmode.json();
+        })
+        .then(function (javaScriptObjectFromWatchmode) {
+          console.log(javaScriptObjectFromWatchmode);
+
+
+          for(let index = 0; index < javaScriptObjectFromWatchmode.titles_results.length; index++){
+             let watchmodeData = {
+              id: javaScriptObjectFromWatchmode.titles_results[index]["id"],
+              title: javaScriptObjectFromWatchmode.titles_results[index]["name"],
+              plot_overview: ,
+              type: ,
+              runtime_minutes: ,
+              release_date: ,
+              genre_names: ,
+              user_rating: ,
+              critic_score: ,
+              poster: ,
+              network_names: ,
+              trailer:
+             };
+          }
+
+
+
+
+
+        });
+    });
 
     // titleRow.appendChild(titleRank);
     titleRow.appendChild(titleImgContainer);
@@ -184,17 +223,7 @@ function addListItem(titles) {
   topFaves.append(topFavesList);
 }
 
-// console.log(titles);
-// titles.forEach((title) => {
-//   const [key, Value] = Object.entry;
-// });
 
-// const movieWatchBaseURL = "https://api.watchmode.com/v1/search";
-// const movieWatchEndPoint = "/list-titles";
-// let rankingType = "movie";
-// let parameter = `?type='${rankingType}'&order_by=rank`;
-
-// let requestURL = baseURL + endPoint + parameter;
 
 // let media = {
 //   id: "3171191",
