@@ -94,9 +94,7 @@ function addListItem(titles) {
 
   if (topFaves.children.length !== 0){
       const ul = document.getElementById("anime-list");
-      if(ul !== null){
-        ul.remove();
-      }
+      ul.remove();
     }
 
   const topFavesList = document.createElement("ul");
@@ -179,22 +177,22 @@ https://api.watchmode.com/v1/search/?apiKey=ZrI3YIL51rLJL91Ep8nSU2BUbaJKM7nzep3P
           console.log(javaScriptObjectFromWatchmode);
 
 
-          for(let index = 0; index < javaScriptObjectFromWatchmode.titles_results.length; index++){
-             let watchmodeData = {
-              id: javaScriptObjectFromWatchmode.titles_results[index]["id"],
-              title: javaScriptObjectFromWatchmode.titles_results[index]["name"],
-              plot_overview: ,
-              type: ,
-              runtime_minutes: ,
-              release_date: ,
-              genre_names: ,
-              user_rating: ,
-              critic_score: ,
-              poster: ,
-              network_names: ,
-              trailer:
-             };
-          }
+          // for(let index = 0; index < javaScriptObjectFromWatchmode.titles_results.length; index++){
+          //    let watchmodeData = {
+          //     id: javaScriptObjectFromWatchmode.titles_results[index]["id"],
+          //     title: javaScriptObjectFromWatchmode.titles_results[index]["name"],
+          //     plot_overview: ,
+          //     type: ,
+          //     runtime_minutes: ,
+          //     release_date: ,
+          //     genre_names: ,
+          //     user_rating: ,
+          //     critic_score: ,
+          //     poster: ,
+          //     network_names: ,
+          //     trailer:
+          //    };
+          // }
 
 
 
