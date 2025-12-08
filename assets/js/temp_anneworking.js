@@ -1,4 +1,86 @@
-//object array for testing card display
+//----WATCHMODE API IMPLEMENTATION TEST----
+const watchModeAPIKey = "FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin";
+//we are going to search the name field for matches for the searchValue
+const searchField = "name";
+//this will not stay hardcoded, will be assigned based on user request
+let searchValue = "one piece";
+//change any spaces in the search value into %20 for valid search query
+searchValue = searchValue.replace(" ", "%20");
+// console.log(`searchValue: ${searchValue}`);
+//build the URL
+let wmRequestURL = `https://api.watchmode.com/v1/search?search_field=${searchField}&search_value=${searchValue}&apiKey=${watchModeAPIKey}`;
+// console.log("URL Request:", wmRequestURL);
+let titleIds = [];
+let titleDetails = [];
+//fetch instances of searchValue from watchmode
+fetch(wmRequestURL)
+  .then(function (response) {
+    // console.log("Raw Response Object:", response);
+    // console.log(`HTTP Status: ${response.status}`);
+    return response.json();
+  })
+  .then(function (data) {
+    // console.log("Parsed JSON Data: ", data.title_results);
+    for (i = 0; i < data.title_results.length; i++) {
+      titleIds.push(data.title_results[i].id);
+      // console.log(`Pushing id onto titleIds array = ${titleIds[i]}`);
+      // console.log(`movieIds length is now: ${titleIds.length}`);
+    }
+  })
+  .then(function () {
+    createTitleDetailsArray();
+  })
+  .catch(function (error) {
+    console.error(`Network or fetch error: ${error}`);
+  });
+
+function createTitleDetailsArray() {
+  console.log(`Title Ids: ${titleIds}`);
+  const wmTitleDetailsBaseUrl = "https://api.watchmode.com/v1/title/";
+  const wmTitleDetailsTailUrl =
+    "/details/?apiKey=FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin&apiKey=FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin";
+  console.log(`Array length is: ${titleIds.length}`);
+  let wmTitleDetailsRequestUrl = "";
+  for (i = 0; i < titleIds.length; i++) {
+    console.log("in the loop");
+    let id = titleIds[i];
+    wmTitleDetailsRequestUrl = `${wmTitleDetailsBaseUrl}${id}${wmTitleDetailsTailUrl}`;
+    console.log(wmTitleDetailsRequestUrl);
+    fetch(wmTitleDetailsRequestUrl)
+      .then(function (response) {
+        console.log("Raw Response Object:", response);
+        console.log(`HTTP Status: ${response.status}`);
+        return response.json();
+      })
+      .then(function (data) {
+        console.log("Parsed JSON Data:", data);
+        const titleDetail = {
+          title: data.title,
+          plot_overview: data.plot_overview,
+          type: data.type,
+          runtime_minutes: data.runtime_minutes,
+          release_date: data.release_date,
+          genre_names: data.genre_names,
+          user_rating: data.user_rating,
+          critic_score: data.critic_score,
+          poster: data.poster,
+          network_names: data.network_names,
+          trailer: data.trailer,
+        };
+        titleDetails.push(titleDetail);
+        console.log("Pushing detail onto titles array: ", titleDetail);
+        console.log(`titleIds length is now: ${titleDetails.length}`);
+      })
+      //.then(displayCards())
+      .catch(function (error) {
+        console.error(`Network or fetch error: ${error}`);
+      });
+  }
+}
+
+// //object array for testing card display
+// let watchmode = titleDetails;
+console.log("Array watchmode: ", titleDetails);
 let watchmode = [
   {
     id: "3171191",
@@ -104,7 +186,7 @@ let watchmode = [
     trailer: null,
   },
 ];
-//console.log(watchmode);
+console.log(watchmode);
 
 //takes the string that should be the content of the list item,
 //turn it into an li element
@@ -319,62 +401,64 @@ function setTabLabel(id, label) {
   tab.setAttribute("aria-label", label);
 }
 
-//counting variables for the loop to track how many of each type of watchmode we have to add to tabs
-let countMovies = 0;
-let countTvSeries = 0;
-let countTvSpecials = 0;
-let countTvMovies = 0;
-let countTvMiniseries = 0;
-let countShortFilms = 0;
+function displayCards() {
+  //counting variables for the loop to track how many of each type of watchmode we have to add to tabs
+  let countMovies = 0;
+  let countTvSeries = 0;
+  let countTvSpecials = 0;
+  let countTvMovies = 0;
+  let countTvMiniseries = 0;
+  let countShortFilms = 0;
 
-//grab the grid elements on each tab to populate in the loop
-const tvSeriesGridEl = document.getElementById("tv-series-grid");
-const movieGridEl = document.getElementById("movies-grid");
-const tvSpecialsGridEl = document.getElementById("tv-specials-grid");
-const tvMoviesGridEl = document.getElementById("tv-movies-grid");
-const tvMiniseriesGridEl = document.getElementById("tv-miniseries-grid");
-const shortFilmsGridEl = document.getElementById("short-films-grid");
+  //grab the grid elements on each tab to populate in the loop
+  const tvSeriesGridEl = document.getElementById("tv-series-grid");
+  const movieGridEl = document.getElementById("movies-grid");
+  const tvSpecialsGridEl = document.getElementById("tv-specials-grid");
+  const tvMoviesGridEl = document.getElementById("tv-movies-grid");
+  const tvMiniseriesGridEl = document.getElementById("tv-miniseries-grid");
+  const shortFilmsGridEl = document.getElementById("short-films-grid");
 
-//loop through objects in watchmode results array and create cards then display them for each object
-for (i = 0; i < watchmode.length; i++) {
-  const card = createCard(watchmode[i]);
-  // console.log(`${watchmode[i].title} is ${watchmode[i].type}`);
+  //loop through objects in watchmode results array and create cards then display them for each object
+  for (i = 0; i < watchmode.length; i++) {
+    const card = createCard(watchmode[i]);
+    // console.log(`${watchmode[i].title} is ${watchmode[i].type}`);
 
-  //add the card to the correct tab depending on type
-  switch (watchmode[i].type) {
-    case "movie":
-      movieGridEl.appendChild(card);
-      countMovies++;
-      break;
-    case "tv_series":
-      tvSeriesGridEl.appendChild(card);
-      countTvSeries++;
-      break;
-    case "tv_special":
-      tvSpecialsGridEl.appendChild(card);
-      countTvSpecials++;
-      break;
-    case "tv_movie":
-      tvMoviesGridEl.appendChild(card);
-      countTvMovies++;
-      break;
-    case "tv_miniseries":
-      tvMiniseriesGridEl.appendChild(card);
-      countTvMiniseries++;
-      break;
-    case "short_film":
-      shortFilmsGridEl.appendChild(card);
-      countShortFilms++;
-      break;
-    default:
-      break;
+    //add the card to the correct tab depending on type
+    switch (watchmode[i].type) {
+      case "movie":
+        movieGridEl.appendChild(card);
+        countMovies++;
+        break;
+      case "tv_series":
+        tvSeriesGridEl.appendChild(card);
+        countTvSeries++;
+        break;
+      case "tv_special":
+        tvSpecialsGridEl.appendChild(card);
+        countTvSpecials++;
+        break;
+      case "tv_movie":
+        tvMoviesGridEl.appendChild(card);
+        countTvMovies++;
+        break;
+      case "tv_miniseries":
+        tvMiniseriesGridEl.appendChild(card);
+        countTvMiniseries++;
+        break;
+      case "short_film":
+        shortFilmsGridEl.appendChild(card);
+        countShortFilms++;
+        break;
+      default:
+        break;
+    }
   }
+  //set labels on tabs to include the number of cards on that tab, so users
+  //can easily see how many of each type are available to check out
+  setTabLabel("movies", `Movies (${countMovies})`);
+  setTabLabel("tv_series", `TV Series (${countTvSeries})`);
+  setTabLabel("tv_specials", `TV Specials (${countTvSpecials})`);
+  setTabLabel("tv_movies", `TV Movies (${countTvMovies})`);
+  setTabLabel("tv_miniseries", `TV Miniseries (${countTvMiniseries})`);
+  setTabLabel("short_films", `Short Films (${countShortFilms})`);
 }
-//set labels on tabs to include the number of cards on that tab, so users
-//can easily see how many of each type are available to check out
-setTabLabel("movies", `Movies (${countMovies})`);
-setTabLabel("tv_series", `TV Series (${countTvSeries})`);
-setTabLabel("tv_specials", `TV Specials (${countTvSpecials})`);
-setTabLabel("tv_movies", `TV Movies (${countTvMovies})`);
-setTabLabel("tv_miniseries", `TV Miniseries (${countTvMiniseries})`);
-setTabLabel("short_films", `Short Films (${countShortFilms})`);
