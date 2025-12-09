@@ -23,169 +23,159 @@ fetch(wmRequestURL)
     // console.log("Parsed JSON Data: ", data.title_results);
     for (i = 0; i < data.title_results.length; i++) {
       titleIds.push(data.title_results[i].id);
+      fetchTitleDetails(titleIds[i]);
       // console.log(`Pushing id onto titleIds array = ${titleIds[i]}`);
       // console.log(`movieIds length is now: ${titleIds.length}`);
     }
-  })
-  .then(function () {
-    createTitleDetailsArray();
   })
   .catch(function (error) {
     console.error(`Network or fetch error: ${error}`);
   });
 
-function createTitleDetailsArray() {
-  console.log(`Title Ids: ${titleIds}`);
+function fetchTitleDetails(id) {
+  console.log(`Title Id: ${id}`);
   const wmTitleDetailsBaseUrl = "https://api.watchmode.com/v1/title/";
-  const wmTitleDetailsTailUrl =
-    "/details/?apiKey=FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin&apiKey=FtuHOv5sr92FjZGx2SHVTAbsPw8etFsPcJ8gYsin";
-  console.log(`Array length is: ${titleIds.length}`);
-  let wmTitleDetailsRequestUrl = "";
-  for (i = 0; i < titleIds.length; i++) {
-    console.log("in the loop");
-    let id = titleIds[i];
-    wmTitleDetailsRequestUrl = `${wmTitleDetailsBaseUrl}${id}${wmTitleDetailsTailUrl}`;
-    console.log(wmTitleDetailsRequestUrl);
-    fetch(wmTitleDetailsRequestUrl)
-      .then(function (response) {
-        console.log("Raw Response Object:", response);
-        console.log(`HTTP Status: ${response.status}`);
-        return response.json();
-      })
-      .then(function (data) {
-        console.log("Parsed JSON Data:", data);
-        const titleDetail = {
-          title: data.title,
-          plot_overview: data.plot_overview,
-          type: data.type,
-          runtime_minutes: data.runtime_minutes,
-          release_date: data.release_date,
-          genre_names: data.genre_names,
-          user_rating: data.user_rating,
-          critic_score: data.critic_score,
-          poster: data.poster,
-          network_names: data.network_names,
-          trailer: data.trailer,
-        };
-        titleDetails.push(titleDetail);
-        console.log("Pushing detail onto titles array: ", titleDetail);
-        console.log(`titleIds length is now: ${titleDetails.length}`);
-      })
-      //.then(displayCards())
-      .catch(function (error) {
-        console.error(`Network or fetch error: ${error}`);
-      });
-  }
+  const wmTitleDetailsTailUrl = `/details/?apiKey=${watchModeAPIKey}`;
+  let wmTitleDetailsRequestUrl = `${wmTitleDetailsBaseUrl}${id}${wmTitleDetailsTailUrl}`;
+  fetch(wmTitleDetailsRequestUrl)
+    .then(function (response) {
+      console.log("Title Details Raw Response Object:", response);
+      console.log(`TItle Details HTTP Status: ${response.status}`);
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("Parsed JSON Data:", data);
+      const titleDetail = {
+        title: data.title,
+        plot_overview: data.plot_overview,
+        type: data.type,
+        runtime_minutes: data.runtime_minutes,
+        release_date: data.release_date,
+        genre_names: data.genre_names,
+        user_rating: data.user_rating,
+        critic_score: data.critic_score,
+        poster: data.poster,
+        network_names: data.network_names,
+        trailer: data.trailer,
+      };
+      titleDetails.push(titleDetail);
+      console.log("Pushing detail onto titles array: ", titleDetail);
+      console.log(`titleIds length is now: ${titleDetails.length}`);
+    })
+    //.then(displayCards())
+    .catch(function (error) {
+      console.error(`Network or fetch error: ${error}`);
+    });
 }
 
 // //object array for testing card display
-// let watchmode = titleDetails;
+let watchmode = titleDetails;
 console.log("Array watchmode: ", titleDetails);
-let watchmode = [
-  {
-    id: "3171191",
-    title: "One Piece",
-    plot_overview:
-      "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure.",
-    type: "tv_series",
-    runtime_minutes: null,
-    release_date: "2023-08-31",
-    genre_names: ["Action", "Adventure", "Fantasy"],
-    user_rating: "8.2",
-    critic_score: "77",
-    poster: "https://cdn.watchmode.com/posters/03171191_poster_w342.jpg",
-    network_names: ["Netflix"],
-    trailer: "https://www.youtube.com/watch?v=Ades3pQbeh8",
-  },
-  {
-    id: "1649495",
-    title: "One Piece Film Red",
-    plot_overview:
-      "Uta — the most beloved singer in the world. Her voice, which she sings with while concealing her true identity, has been described as “otherworldly.” She will appear in public for the first time at a live concert. As the venue fills with all kinds of Uta fans — excited pirates, the Navy watching closely, and the Straw Hats led by Luffy who simply came to enjoy her sonorous performance — the voice that the whole world has been waiting for is about to resound.",
-    type: "movie",
-    runtime_minutes: "115",
-    release_date: "2022-08-06",
-    genre_names: ["Animation", "Adventure", "Action", "Fantasy", "Music"],
-    user_rating: "6.9",
-    critic_score: "83",
-    poster: "https://cdn.watchmode.com/posters/01649495_poster_w342.jpg",
-    network_names: null,
-    trailer: "https://www.youtube.com/watch?v=r0FvP_Ui-xY",
-  },
-  {
-    id: "3215358",
-    title: "One Piece Characters Log",
-    plot_overview:
-      "One Piece Characters Log is a series of recap episodes for the One Piece anime, made to commemorate the release of One Piece Film: Gold. The episodes recap the stories of each of the nine Straw Hat Pirates until the Dressrosa Arc, and are narrated by Bartolomeo. Each episode is around 30 minutes. Originally airing weekly on television from June 19 to September 11, 2016, the episodes were also released on four DVDs",
-    type: "tv_miniseries",
-    runtime_minutes: "30",
-    release_date: "2016-06-20",
-    genre_names: ["Animation", "Action & Adventure"],
-    network_names: ["Fuji TV"],
-    trailer: null,
-    poster: "https://cdn.watchmode.com/posters/03215358_poster_w342.jpg",
-    type: "tv_special",
-    runtime_minutes: "46",
-  },
-  {
-    id: "479035",
-    title: "One Piece: Protect! The Last Great Stage",
-    plot_overview:
-      "Aired after Episode 174 - It is the last performance of a great actor and playwright, but several actors suddenly quit. Luckily, the Straw Hats offer to take their place. However, the quitting actors turns out to be more than a coincidence when they meet a Marine with a grudge against the playwright.",
-    type: "tv_special",
-    runtime_minutes: "46",
-    release_date: "2003-12-14",
-    genre_names: ["Action", "Animation", "Adventure", "Comedy", "TV Movie"],
-    user_rating: "7",
-    critic_score: null,
-    poster: "https://cdn.watchmode.com/posters/0479035_poster_w342.jpg",
-    network_names: null,
-    trailer: null,
-  },
-  {
-    id: "4160209",
-    title: "One Piece TV Special: Adventure in the Ocean's Navel",
-    plot_overview: null,
-    type: "tv_movie",
-    runtime_minutes: "49",
-    release_date: "2000-12-20",
-    genre_names: ["Animation", "Action", "Adventure", "TV Movie"],
-    user_rating: "6.4",
-    critic_score: null,
-    poster: "https://cdn.watchmode.com/posters/04160209_poster_w342.jpg",
-    network_names: null,
-    trailer: null,
-  },
-  {
-    id: "2368682",
-    title: "One Piece: Dream Soccer King!",
-    plot_overview:
-      'At a huge pillar stadium, the Grand Line Cup Final is being held. The "Straw Hat Pirate Team"(Luffy, Zoro, Usopp, Sanji, and Chopper) are having a tie breaker shoot out against the "Villian All Star Team"(Buggy, Bon Clay, Jango, Hatchan, and a soccer like head player named Odacchi). Everyone of them gets a turn in kicking the ball to the goal. While Coby is taking the goalie position, and isn\'t doing too good in blocking the goal. One after another, the game eventually comes to a sudden death match. Which team will win the Grand Line Cup?',
-    type: "short_film",
-    runtime_minutes: "5",
-    release_date: "2002-03-02",
-    genre_names: ["Fantasy", "Comedy", "Animation"],
-    user_rating: "6.6",
-    critic_score: null,
-    poster: "https://cdn.watchmode.com/posters/02368682_poster_w342.jpg",
-    network_names: null,
-    trailer: null,
-  },
-  {
-    id: "2368682",
-    title: "null",
-    plot_overview: "null",
-    type: "short_film",
-    runtime_minutes: "null",
-    release_date: "2002-03-02",
-    genre_names: null,
-    user_rating: "null",
-    critic_score: null,
-    poster: "null",
-    network_names: null,
-    trailer: null,
-  },
-];
+// let watchmode = [
+// {
+//   id: "3171191",
+//   title: "One Piece",
+//   plot_overview:
+//     "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure.",
+//   type: "tv_series",
+//   runtime_minutes: null,
+//   release_date: "2023-08-31",
+//   genre_names: ["Action", "Adventure", "Fantasy"],
+//   user_rating: "8.2",
+//   critic_score: "77",
+//   poster: "https://cdn.watchmode.com/posters/03171191_poster_w342.jpg",
+//   network_names: ["Netflix"],
+//   trailer: "https://www.youtube.com/watch?v=Ades3pQbeh8",
+// },
+// {
+//   id: "1649495",
+//   title: "One Piece Film Red",
+//   plot_overview:
+//     "Uta — the most beloved singer in the world. Her voice, which she sings with while concealing her true identity, has been described as “otherworldly.” She will appear in public for the first time at a live concert. As the venue fills with all kinds of Uta fans — excited pirates, the Navy watching closely, and the Straw Hats led by Luffy who simply came to enjoy her sonorous performance — the voice that the whole world has been waiting for is about to resound.",
+//   type: "movie",
+//   runtime_minutes: "115",
+//   release_date: "2022-08-06",
+//   genre_names: ["Animation", "Adventure", "Action", "Fantasy", "Music"],
+//   user_rating: "6.9",
+//   critic_score: "83",
+//   poster: "https://cdn.watchmode.com/posters/01649495_poster_w342.jpg",
+//   network_names: null,
+//   trailer: "https://www.youtube.com/watch?v=r0FvP_Ui-xY",
+// },
+// {
+//   id: "3215358",
+//   title: "One Piece Characters Log",
+//   plot_overview:
+//     "One Piece Characters Log is a series of recap episodes for the One Piece anime, made to commemorate the release of One Piece Film: Gold. The episodes recap the stories of each of the nine Straw Hat Pirates until the Dressrosa Arc, and are narrated by Bartolomeo. Each episode is around 30 minutes. Originally airing weekly on television from June 19 to September 11, 2016, the episodes were also released on four DVDs",
+//   type: "tv_miniseries",
+//   runtime_minutes: "30",
+//   release_date: "2016-06-20",
+//   genre_names: ["Animation", "Action & Adventure"],
+//   network_names: ["Fuji TV"],
+//   trailer: null,
+//   poster: "https://cdn.watchmode.com/posters/03215358_poster_w342.jpg",
+//   type: "tv_special",
+//   runtime_minutes: "46",
+// },
+// {
+//   id: "479035",
+//   title: "One Piece: Protect! The Last Great Stage",
+//   plot_overview:
+//     "Aired after Episode 174 - It is the last performance of a great actor and playwright, but several actors suddenly quit. Luckily, the Straw Hats offer to take their place. However, the quitting actors turns out to be more than a coincidence when they meet a Marine with a grudge against the playwright.",
+//   type: "tv_special",
+//   runtime_minutes: "46",
+//   release_date: "2003-12-14",
+//   genre_names: ["Action", "Animation", "Adventure", "Comedy", "TV Movie"],
+//   user_rating: "7",
+//   critic_score: null,
+//   poster: "https://cdn.watchmode.com/posters/0479035_poster_w342.jpg",
+//   network_names: null,
+//   trailer: null,
+// },
+// {
+//   id: "4160209",
+//   title: "One Piece TV Special: Adventure in the Ocean's Navel",
+//   plot_overview: null,
+//   type: "tv_movie",
+//   runtime_minutes: "49",
+//   release_date: "2000-12-20",
+//   genre_names: ["Animation", "Action", "Adventure", "TV Movie"],
+//   user_rating: "6.4",
+//   critic_score: null,
+//   poster: "https://cdn.watchmode.com/posters/04160209_poster_w342.jpg",
+//   network_names: null,
+//   trailer: null,
+// },
+// {
+//   id: "2368682",
+//   title: "One Piece: Dream Soccer King!",
+//   plot_overview:
+//     'At a huge pillar stadium, the Grand Line Cup Final is being held. The "Straw Hat Pirate Team"(Luffy, Zoro, Usopp, Sanji, and Chopper) are having a tie breaker shoot out against the "Villian All Star Team"(Buggy, Bon Clay, Jango, Hatchan, and a soccer like head player named Odacchi). Everyone of them gets a turn in kicking the ball to the goal. While Coby is taking the goalie position, and isn\'t doing too good in blocking the goal. One after another, the game eventually comes to a sudden death match. Which team will win the Grand Line Cup?',
+//   type: "short_film",
+//   runtime_minutes: "5",
+//   release_date: "2002-03-02",
+//   genre_names: ["Fantasy", "Comedy", "Animation"],
+//   user_rating: "6.6",
+//   critic_score: null,
+//   poster: "https://cdn.watchmode.com/posters/02368682_poster_w342.jpg",
+//   network_names: null,
+//   trailer: null,
+// },
+// {
+//   id: "2368682",
+//   title: "null",
+//   plot_overview: "null",
+//   type: "short_film",
+//   runtime_minutes: "null",
+//   release_date: "2002-03-02",
+//   genre_names: null,
+//   user_rating: "null",
+//   critic_score: null,
+//   poster: "null",
+//   network_names: null,
+//   trailer: null,
+// },
+// ];
 console.log(watchmode);
 
 //takes the string that should be the content of the list item,
