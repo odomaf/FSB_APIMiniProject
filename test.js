@@ -515,6 +515,13 @@ function displayCards(watchmode) {
   const tvMiniseriesGridEl = document.getElementById("tv-miniseries-grid");
   const shortFilmsGridEl = document.getElementById("short-films-grid");
 
+  if (movieGridEl) movieGridEl.innerHTML = "";
+  if (tvSeriesGridEl) tvSeriesGridEl.innerHTML = "";
+  if (tvSpecialsGridEl) tvSpecialsGridEl.innerHTML = "";
+  if (tvMoviesGridEl) tvMoviesGridEl.innerHTML = "";
+  if (tvMiniseriesGridEl) tvMiniseriesGridEl.innerHTML = "";
+  if (shortFilmsGridEl) shortFilmsGridEl.innerHTML = "";
+
   //loop through objects in watchmode results array and create cards then display them for each object
   for (i = 0; i < watchmode.length; i++) {
     const card = createCard(watchmode[i]);
