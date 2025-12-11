@@ -12,15 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <!-- <div class="hero-container">
+    <div class="hero-container sticky top-0 -z-10 w-full h-[55vh]">
       <img
-        src="./assets/Hero.png"
+        src="./assets/images/JACL Banner.png"
         alt="Background"
-        class="base-img"
+        class="base-img w-full h-full object-cover"
         id="hero"
       />
 
-      <div class="logo-overlay">
+      <div
+        class="logo-overlay absolute inset-0 flex items-center justify-center pointer-events-none"
+      >
         <div id="app">
           <div class="doors">
             <div class="door"><div class="boxes"></div></div>
@@ -30,114 +32,120 @@
           </div>
         </div>
       </div>
-    </div> -->
-
-    <div>
-      <h2>From My Anime List</h2>
-      <button data-filter="favorite" id="favorite" class="btn btn-primary">Top 10 Favorited</button>
-      <button data-filter="bypopularity" id="popular" class="btn btn-secondary">
-        Top 10 By Popularity
-      </button>
     </div>
-    <container class="inline-flex">
-      <!--top 10 section-->
-      <article id="topFaves" data-theme="">
 
-      </article>
+    <main class="relative z-10 bg-base-100 w-full">
+      <div>
+        <h2>From My Anime List</h2>
+        <button data-filter="favorite" id="favorite" class="btn btn-primary">
+          Top 10 Favorited
+        </button>
+        <button
+          data-filter="bypopularity"
+          id="popular"
+          class="btn btn-secondary"
+        >
+          Top 10 By Popularity
+        </button>
+      </div>
+      <container class="inline-flex">
+        <!--top 10 section-->
+        <article id="topFaves" data-theme=""></article>
 
-      <hr />
+        <hr />
 
         <section data-theme="">
-        <!-- name of each tab group should be unique -->
-        <div class="tabs tabs-box">
-          <input
-            id="movies"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="Movies"
-            checked="checked"
-          />
-          <div
-            id="movies-tab"
-            class="tab-content bg-base-100 border-base-300 p-6 content-start"
-          >
-            <div id="movies-grid" class="grid grid-cols-3">
-              <!--MOVIE CARDS GO HERE-->
+          <!-- name of each tab group should be unique -->
+          <div class="tabs tabs-box">
+            <input
+              id="movies"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="Movies"
+              checked="checked"
+            />
+            <div
+              id="movies-tab"
+              class="tab-content bg-base-100 border-base-300 p-6 content-start"
+            >
+              <div id="movies-grid" class="grid grid-cols-3">
+                <!--MOVIE CARDS GO HERE-->
+              </div>
             </div>
-          </div>
 
-          <input
-            id="tv_series"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="TV Series"
-          />
-          <div
-            id="tv-series-tab"
-            class="tab-content bg-base-100 border-base-300 p-6"
-          >
-            <div id="tv-series-grid" class="grid grid-cols-3">
-              <!--TV SERIES CARDS GO HERE-->
+            <input
+              id="tv_series"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="TV Series"
+            />
+            <div
+              id="tv-series-tab"
+              class="tab-content bg-base-100 border-base-300 p-6"
+            >
+              <div id="tv-series-grid" class="grid grid-cols-3">
+                <!--TV SERIES CARDS GO HERE-->
+              </div>
             </div>
-          </div>
 
-          <input
-            id="tv_specials"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="TV Specials"
-          />
-          <div class="tab-content bg-base-100 border-base-300 p-6">
-            <div id="tv-specials-grid" class="grid grid-cols-3">
-              <!--TV SPECIALS CARDS GO HERE-->
+            <input
+              id="tv_specials"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="TV Specials"
+            />
+            <div class="tab-content bg-base-100 border-base-300 p-6">
+              <div id="tv-specials-grid" class="grid grid-cols-3">
+                <!--TV SPECIALS CARDS GO HERE-->
+              </div>
             </div>
-          </div>
 
-          <input
-            id="tv_movies"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="TV Movies"
-          />
-          <div class="tab-content bg-base-100 border-base-300 p-6">
-            <div id="tv-movies-grid" class="grid grid-cols-3">
-              <!--TV SPECIALS CARDS GO HERE-->
+            <input
+              id="tv_movies"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="TV Movies"
+            />
+            <div class="tab-content bg-base-100 border-base-300 p-6">
+              <div id="tv-movies-grid" class="grid grid-cols-3">
+                <!--TV SPECIALS CARDS GO HERE-->
+              </div>
             </div>
-          </div>
 
-          <input
-            id="tv_miniseries"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="TV Miniseries"
-          />
-          <div class="tab-content bg-base-100 border-base-300 p-6">
-            <div id="tv-miniseries-grid" class="grid grid-cols-3">
-              <!--TV MINISERIES CARDS GO HERE-->
+            <input
+              id="tv_miniseries"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="TV Miniseries"
+            />
+            <div class="tab-content bg-base-100 border-base-300 p-6">
+              <div id="tv-miniseries-grid" class="grid grid-cols-3">
+                <!--TV MINISERIES CARDS GO HERE-->
+              </div>
+            </div>
+            <input
+              id="short_films"
+              type="radio"
+              name="my_tabs_6"
+              class="tab"
+              aria-label="Short Films"
+            />
+            <div class="tab-content bg-base-100 border-base-300 p-6">
+              <div id="short-films-grid" class="grid grid-cols-3">
+                <!--SHORT FILMS CARDS GO HERE-->
+              </div>
             </div>
           </div>
-          <input
-            id="short_films"
-            type="radio"
-            name="my_tabs_6"
-            class="tab"
-            aria-label="Short Films"
-          />
-          <div class="tab-content bg-base-100 border-base-300 p-6">
-            <div id="short-films-grid" class="grid grid-cols-3">
-              <!--SHORT FILMS CARDS GO HERE-->
-            </div>
-          </div>
-        </div>
-      </section>
-    </container>
+        </section>
+      </container>
+    </main>
+
     <footer></footer>
-    <!-- <script src="./assets/js/script.js"></script> -->
-     <script src="./test.js"></script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
