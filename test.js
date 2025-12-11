@@ -8,14 +8,13 @@ const titleDetails = [];
 //Can make it more persistant with localstorage
 function watchmodeResponseCache(anime, requestURL, details) {
   //Checking if request is for anime details from watchmode
-  if (!details) {
-    const cached = localStorage.getItem(`${anime}`);
+  const cached = localStorage.getItem(`${anime}`);
 
+  if (!details) {
     if (cached) {
       console.log("From cache:");
       const parsed = JSON.parse(cached);
       return Promise.resolve(parsed.ids);
-
     } else {
       return fetch(requestURL)
         .then(function (response) {
@@ -26,16 +25,56 @@ function watchmodeResponseCache(anime, requestURL, details) {
 
           const ids = responseData.title_results.map((result) => result.id);
 
-          localStorage.setItem(
-            `${anime}`,
-            JSON.stringify({ids})
-          );
+          localStorage.setItem(`${anime}`, JSON.stringify({ ids }));
           return ids;
-
         });
     }
-  }else{
+  } else {
 
+    const parsed = cached ? JSON.parse(cached) : null;
+
+    if (parsed && parsed.titleDetails) {
+      console.log("From cache:");
+      return Promise.resolve(parsed.titleDetails);
+    } else {
+
+      return fetch(requestURL)
+        .then(function (response) {
+
+          return response.json();
+        })
+        .then(function (responseData) {
+
+          console.log("Fetch called.");
+
+          const titleDetail = {
+            title: responseData.title,
+            plot_overview: responseData.plot_overview,
+            type: responseData.type,
+            runtime_minutes: responseData.runtime_minutes,
+            release_date: responseData.release_date,
+            genre_names: responseData.genre_names,
+            user_rating: responseData.user_rating,
+            critic_score: responseData.critic_score,
+            poster: responseData.poster,
+            network_names: responseData.network_names,
+            trailer: responseData.trailer,
+          };
+
+          const freshCacheString = localStorage.getItem(`${anime}`);
+          const freshCache = freshCacheString ? JSON.parse(freshCacheString) : {};
+
+          //Checking if an array already exists before appending
+          if(!freshCache.titleDetails){
+            freshCache.titleDetails = []
+          }
+
+          freshCache.titleDetails.push(titleDetail);
+
+          localStorage.setItem(`${anime}`, JSON.stringify(freshCache));
+          return freshCache.titleDetails;
+        });
+    }
   }
 }
 
@@ -120,9 +159,6 @@ popular.addEventListener("click", function (event) {
     });
 });
 
-// WatchMode API
-//'https://api.watchmode.com/v1/search/?apiKey=YOUR_API_KEY&search_field=name&search_value=Ed%20Wood'
-
 function addListItem(titles) {
   const topFaves = document.getElementById("topFaves");
 
@@ -193,6 +229,7 @@ function addListItem(titles) {
     titleButtonSvg.appendChild(titleButtonSvgGroup);
     titleButton.appendChild(titleButtonSvg);
 
+    //Call functionality
     titleButton.addEventListener("click", function () {
       const baseURL = "https://api.watchmode.com/v1";
       const endPoint = "/search";
@@ -203,11 +240,11 @@ function addListItem(titles) {
 
       requestURL = baseURL + endPoint + parameter;
 
-      watchmodeResponseCache(title.jikanTitle, requestURL,false)
-      .then(titleIds =>{
-        console.log(titleIds);
-      // titleIds.forEach((id) => fetchTitleDetails(id, watchmodeApiKey));
-      })
+      watchmodeResponseCache(title.jikanTitle, requestURL, false).then(
+        (titleIds) => {
+          titleIds.forEach((id) => fetchTitleDetails(title.jikanTitle, id, watchmodeApiKey));
+        }
+      );
 
 
     });
@@ -232,40 +269,16 @@ function addListItem(titles) {
   topFaves.append(topFavesList);
 }
 
-function fetchTitleDetails(id, watchmodeAPIKey) {
+function fetchTitleDetails(anime, id, watchmodeAPIKey) {
   console.log(`Title Id: ${id}`);
   const wmTitleDetailsBaseUrl = "https://api.watchmode.com/v1/title/";
   const wmTitleDetailsTailUrl = `/details/?apiKey=${watchmodeAPIKey}`;
   let wmTitleDetailsRequestUrl = `${wmTitleDetailsBaseUrl}${id}${wmTitleDetailsTailUrl}`;
 
-  watchmodeResponseCache(id, wmTitleDetailsRequestUrl, true);
-
-  fetch(wmTitleDetailsRequestUrl)
-    .then(function (response) {
-      console.log("Title Details Raw Response Object:", response);
-      console.log(`TItle Details HTTP Status: ${response.status}`);
-      return response.json();
+  watchmodeResponseCache(anime, wmTitleDetailsRequestUrl, true)
+    .then((titleDetails) => {
+      console.log(titleDetails);
     })
-    .then(function (data) {
-      console.log("Parsed JSON Data:", data);
-      const titleDetail = {
-        title: data.title,
-        plot_overview: data.plot_overview,
-        type: data.type,
-        runtime_minutes: data.runtime_minutes,
-        release_date: data.release_date,
-        genre_names: data.genre_names,
-        user_rating: data.user_rating,
-        critic_score: data.critic_score,
-        poster: data.poster,
-        network_names: data.network_names,
-        trailer: data.trailer,
-      };
-      titleDetails.push(titleDetail);
-      console.log("Pushing detail onto titles array: ", titleDetail);
-      console.log(`titleIds length is now: ${titleDetails.length}`);
-    })
-    //.then(displayCards())
     .catch(function (error) {
       console.error(`Network or fetch error: ${error}`);
     });
