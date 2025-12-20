@@ -33,8 +33,8 @@ This section walks through the exact user journey using screenshots from the app
 Landing Page (Screenshots 1 & 2)
 
 What the user sees on page load:
-![JACL Hero Banner](./images/JACL%20banner.png)
-![Landing Page – Initial Anime List](./images/landing_anime_list.png)
+![JACL Hero Banner](../FSB_APIMiniProject/assets/images/JACL%20banner.png)
+![Landing Page – Initial Anime List](../FSB_APIMiniProject/assets/images/landing_anime_list.png)
 A branded hero section introducing JACL – Your Anime Streaming Compass
 Navigation options to explore anime rankings - Clean, minimal layout focused on discovery
 
@@ -46,9 +46,9 @@ The app fetches top-ranked anime from MyAnimeList (via Jikan)
 
 A ranked list populates on the left
 
-![Top 10 Popular List](./images/top_10_popular.png)
+![Top 10 Popular List](../FSB_APIMiniProject/assets/images/top_10_popular.png)
 
-▶ Expanding an Anime Property (Screenshot 4)
+▶ Expanding an Anime Property
 
 Clicking the arrow icon ▶:
 
@@ -56,19 +56,13 @@ Loads all related media
 
 Categorized into Movies, TV Series, Specials, etc.
 
-![Expanded Anime Media List](./images/full_list.png)
+![Expanded Anime Media List](../FSB_APIMiniProject/assets/images/full_list.png)
 
 
 💬 Hover Summary Interaction (Screenshot 5)
 Hovering over Read Summary:
 
 Displays a tooltip with a short synopsis
-![Hover Summary Tooltip](./images/read_summary.png)
+![Hover Summary Tooltip](../FSB_APIMiniProject/assets/images/read_summary.png)
 
 
-💬 Hover Summary Interaction (Screenshot 5)
-Hovering over Read Summary:
-
-Displays a tooltip with a short synopsis
-
-![Hover Summary Tooltip](./images/read_summary.png)
