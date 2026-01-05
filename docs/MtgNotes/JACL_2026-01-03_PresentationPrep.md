@@ -11,4 +11,4 @@ Lynette: Running the slideshow, data filtering piece on HTML (tying it to how ba
 
 Technical highlights to cover: Caching implementation (unique to your group), the two-step API call process (get media ID, then get details), and how you navigated the CORS issue
 
-Schedule: Dry run Monday, 30 minutes before class (7pm for some, 6:30pm for others). Actual presentation is Wednesday during office hours. Notes and feedback can go in Discord.
+Schedule: Dry run Monday, 30 minutes before class (7pm EST, 6:00pm CT). Actual presentation is Wednesday during office hours. Notes and feedback can go in Discord.
